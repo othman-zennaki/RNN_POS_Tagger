@@ -94,35 +94,52 @@ int main(int argc, char **argv)
     	printf("Parameters for training phase:\n");
     	
     	printf("\t-train <file>\n");
-        printf("\t\tUse text data from <file> to train rnnlm model\n");
+        printf("\t\tUse text data from <file> to build common representation (one sentence by line)\n");
+
+    	printf("\t-train-tag <file>\n");
+        printf("\t\ttrain <file> Tagged(One word by line: Word	Tag)\n");
+	
+
         
-        printf("\t-class <int>\n");
+/*        printf("\t-class <int>\n");
         printf("\t\tWill use specified amount of classes to decompose vocabulary; default is 100\n");
 	
 	printf("\t-old-classes\n");
         printf("\t\tThis will use old algorithm to compute classes, which results in slower models but can be a bit more precise\n");
-
+*/
     	printf("\t-rnnlm <file>\n");
         printf("\t\tUse <file> to store rnnlm model\n");
-        
+
+
+
+/*        
         printf("\t-binary\n");
         printf("\t\tRnnlm model will be saved in binary format (default is plain text)\n");
-
+*/
     	printf("\t-valid <file>\n");
-    	printf("\t\tUse <file> as validation data\n");
+    	printf("\t\tUse <file> as validation data (one sentence by line)\n");
+
+    	printf("\t-valid-tag <file>\n");
+        printf("\t\tvalid <file> Tagged (One word by line: Word	Tag)\n");
+
+
+
+		printf("\t-tag-set <file>\n");
+    	printf("\t\tTag Set <file> \n");
+
 
     	printf("\t-alpha <float>\n");
     	printf("\t\tSet starting learning rate; default is 0.1\n");
-    	
+/*    	
     	printf("\t-beta <float>\n");
     	printf("\t\tSet L2 regularization parameter; default is 1e-7\n");
-
+*/
     	printf("\t-hidden <int>\n");
     	printf("\t\tSet size of hidden layer; default is 30\n");
     	
     	printf("\t-compression <int>\n");
-    	printf("\t\tSet size of compression layer; default is 0 (not used)\n");
-    	
+    	printf("\t\tSet size of compression layer; default is 0 \n");
+/*    	
     	printf("\t-direct <int>\n");
     	printf("\t\tSets size of the hash for direct connections with n-gram features in millions; default is 0\n");
     	
@@ -146,7 +163,7 @@ int main(int argc, char **argv)
 
     	printf("\t-gradient-cutoff <float>\n");
     	printf("\t\tSet maximal absolute gradient value (to improve training stability, use lower values; default is 15, to turn off use 0)\n");
-
+*/
     	//
 
     	printf("Parameters for testing phase:\n");
@@ -155,8 +172,12 @@ int main(int argc, char **argv)
     	printf("\t\tRead rnnlm model from <file>\n");
 
     	printf("\t-test <file>\n");
-    	printf("\t\tUse <file> as test data to report perplexity\n");
+    	printf("\t\tUse text data from <file> to build common representation (train file (corpus) used in training phase, or a parallel corpus (same number of sentences))\n");
 
+    	printf("\t-test-tag <file>\n");
+    	printf("\t\tUse <file> as test data\n");
+		 
+/*
     	printf("\t-lm-prob\n");
     	printf("\t\tUse other LM probabilities for linear interpolation with rnnlm model; see examples at the rnnlm webpage\n");
 
@@ -165,20 +186,21 @@ int main(int argc, char **argv)
     	
     	printf("\t-dynamic <float>\n");
     	printf("\t\tSet learning rate for dynamic model updates during testing phase; default is 0 (static model)\n");
-    	
+*/    	
     	//
 
     	printf("Additional parameters:\n");
-    	
+/*    	
     	printf("\t-gen <int>\n");
     	printf("\t\tGenerate specified amount of words given distribution from current model\n");
     	
     	printf("\t-independent\n");
     	printf("\t\tWill erase history at end of each sentence (if used for training, this switch should be used also for testing & rescoring)\n");
-        // à faire ajouter les fichier dans le help
+*/        // à faire ajouter les fichier dans le help
+
     	printf("\nExamples:\n");
-    	printf("rnnlm -train train -train-tag trainTag -rnnlm model -valid valid -hidden 50 -tag-set tagSet\n");
-    	printf("rnnlm -rnnlm model -test test\n");
+    	printf("rnnlm -train train -train-tag trainTagged -rnnlm model -valid valid -valid-tag validTagged -hidden 50 -tag-set tagSet\n");
+    	printf("rnnlm -rnnlm model -test test -test-tag testToTag\n");
     	printf("\n");
 
     	return 0;	//***
@@ -292,6 +314,7 @@ int main(int argc, char **argv)
     }
     
     //Modif 11/09 search for valid file tag
+    
     i=argPos((char *)"-valid-tag", argc, argv);
     if (i>0) {
         if (i+1==argc) {
