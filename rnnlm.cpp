@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////
 //
-// Recurrent neural network based statistical language modeling toolkit
+// Adaptation of the Recurrent neural network based statistical language modeling toolkit for POS Tagging
 // Version 0.3e
 // (c) 2010-2012 Tomas Mikolov (tmikolov@gmail.com)
-//
+// Othman Zennaki(zennaki213@gmail.com)
 ///////////////////////////////////////////////////////////////////////
 
 
